@@ -1,0 +1,10 @@
+pandas
+numpy
+optuna
+matplot
+seaborn
+Flask
+sklearn
+xgboost
+lightgbm
+joblib
