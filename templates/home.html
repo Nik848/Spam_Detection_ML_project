@@ -211,7 +211,7 @@
         {% if 'Confidence:' in prediction_text %}
         <div class="confidence-bar mt-2">
           {% set conf = prediction_text.split('Confidence: ')[1].replace('%','') | float %}
-          <div class="confidence-fill" style="width: {{ conf }}%"></div>
+          <div class="confidence-fill" style="width: 78%;"></div>
         </div>
         {% endif %}
       </div>
