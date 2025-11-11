@@ -6,8 +6,8 @@ import numpy as np
 app = Flask(__name__)
 
 # Load model and vectorizer
-classmodel = joblib.load("models/best_spam_model.pkl")
-vectorizer = joblib.load("models/tfidf_vectorizer.pkl")
+classmodel = joblib.load("model/best_spam_model.pkl")
+vectorizer = joblib.load("model/tfidf_vectorizer.pkl")
 
 # Label mapping
 label_map = {0: "Not Spam", 1: "Spam"}

@@ -13,30 +13,33 @@
 
   <style>
     :root {
-      --primary: #4f46e5;          /* Indigo accent */
-      --secondary: #6366f1;
-      --success-bg: #e8f5ee;       /* soft green */
-      --success-text: #1b4332;
-      --danger-bg: #fcebea;        /* soft red */
-      --danger-text: #7f1d1d;
-      --background: #f9fafb;
+      --primary: #5b8a72;          /* muted green-teal */
+      --secondary: #9fc9b8;        /* soft mint accent */
+      --success-bg: #edf7f2;       /* pale mint background */
+      --success-text: #234f3a;
+      --danger-bg: #f9ecec;        /* very light coral background */
+      --danger-text: #7b2c2c;
+      --background: #f5f7f8;       /* off-white gray */
       --card-bg: #ffffff;
-      --text-dark: #1f2937;
+      --text-dark: #2c3e50;
       --text-muted: #6b7280;
       --border-color: #e5e7eb;
+      --shadow: rgba(0, 0, 0, 0.04);
     }
 
     body {
       font-family: "Inter", sans-serif;
       background-color: var(--background);
       color: var(--text-dark);
+      margin: 0;
+      padding: 0;
     }
 
     /* Header */
     header {
-      background-color: #fff;
+      background-color: #ffffff;
       border-bottom: 1px solid var(--border-color);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 2px 12px var(--shadow);
       padding: 1rem 2rem;
       position: sticky;
       top: 0;
@@ -48,6 +51,11 @@
       font-size: 1.3rem;
       color: var(--primary);
       text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    header .brand:hover {
+      color: var(--secondary);
     }
 
     main {
@@ -61,16 +69,17 @@
     .classifier-card {
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-      padding: 2.5rem;
-      max-width: 650px;
+      border-radius: 18px;
+      box-shadow: 0 6px 20px var(--shadow);
+      padding: 2.8rem 2.2rem;
+      max-width: 640px;
       width: 100%;
-      transition: transform 0.25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .classifier-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
     }
 
     h1 {
@@ -85,6 +94,7 @@
       text-align: center;
       color: var(--text-muted);
       margin-bottom: 2rem;
+      font-size: 1rem;
     }
 
     textarea {
@@ -96,11 +106,12 @@
       padding: 1rem;
       color: var(--text-dark);
       transition: all 0.2s ease;
+      min-height: 120px;
     }
 
     textarea:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+      box-shadow: 0 0 0 3px rgba(91, 138, 114, 0.15);
     }
 
     .btn-primary {
@@ -109,15 +120,17 @@
       border-radius: 10px;
       font-weight: 500;
       font-size: 1rem;
-      padding: 0.8rem 1.2rem;
+      padding: 0.9rem 1.2rem;
       transition: all 0.3s ease;
       width: 100%;
+      color: #fff;
     }
 
     .btn-primary:hover {
       background-color: var(--secondary);
+      color: var(--text-dark);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 6px 12px rgba(159, 201, 184, 0.4);
     }
 
     .result-box {
@@ -133,7 +146,7 @@
     .not-spam {
       background-color: var(--success-bg);
       color: var(--success-text);
-      border: 1px solid #b7e4c7;
+      border: 1px solid #c8e6ce;
     }
 
     .spam {
@@ -142,27 +155,13 @@
       border: 1px solid #f5c2c2;
     }
 
-    .confidence-bar {
-      height: 8px;
-      border-radius: 4px;
-      background-color: #e5e7eb;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .confidence-fill {
-      height: 100%;
-      background-color: var(--primary);
-      transition: width 0.6s ease-in-out;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     footer {
-      background-color: #fff;
+      background-color: #ffffff;
       border-top: 1px solid var(--border-color);
       text-align: center;
       padding: 1.2rem;
@@ -176,22 +175,24 @@
       text-decoration: none;
       font-weight: 500;
     }
+
     footer a:hover {
       text-decoration: underline;
+      color: var(--secondary);
     }
   </style>
 </head>
 <body>
   <!-- Navbar / Header -->
   <header>
-    <a href="#" class="brand">📩 SmartSpam AI</a>
+    <a href="#" class="brand">SmartSpam AI</a>
   </header>
 
   <!-- Main Content -->
   <main>
     <div class="classifier-card">
       <h1>Spam Message Classifier</h1>
-      <p class="subtext">Detect spam or safe messages instantly using AI-powered classification.</p>
+      <p class="subtext">Detect spam or safe messages instantly using calm AI intelligence.</p>
 
       <form action="{{ url_for('predict') }}" method="post">
         <div class="mb-4">
@@ -203,17 +204,8 @@
       </form>
 
       {% if prediction_text %}
-      <div
-        class="result-box {% if 'Spam' in prediction_text %}spam{% else %}not-spam{% endif %}"
-      >
+      <div class="result-box {% if 'Spam' in prediction_text %}spam{% else %}not-spam{% endif %}">
         {{ prediction_text }}
-
-        {% if 'Confidence:' in prediction_text %}
-        <div class="confidence-bar mt-2">
-          {% set conf = prediction_text.split('Confidence: ')[1].replace('%','') | float %}
-          <div class="confidence-fill" style="width: 78%;"></div>
-        </div>
-        {% endif %}
       </div>
       {% endif %}
     </div>
