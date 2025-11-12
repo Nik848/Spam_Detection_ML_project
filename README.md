@@ -24,18 +24,21 @@ Built with **Flask** for deployment and **TF-IDF + LightGBM/XGBoost** for intell
 
 ## 📁 Project Structure
 
-📦 Spam-Detection-Project
-├── cleaning.ipynb # Text preprocessing & cleaning
-├── model.ipynb # Model training & evaluation
-├── app.py # Flask app for serving predictions
-├── requirements.txt # Dependencies
+```text
+Spam-Detection-Project/
+│
+├── cleaning.ipynb              # Text preprocessing & cleaning
+├── model.ipynb                 # Model training & evaluation
+├── app.py                      # Flask app for serving predictions
+├── requirements.txt            # Dependencies list
+│
 ├── model/
-│ ├── best_spam_model.pkl
-│ └── tfidf_vectorizer.pkl
+│   ├── best_spam_model.pkl     # Trained ML model
+│   └── tfidf_vectorizer.pkl    # TF-IDF vectorizer
+│
 └── templates/
-└── home.html
-
-
+    └── home.html               # Web UI template
+```
 ---
 
 ## 🚀 Setup & Run
@@ -50,17 +53,19 @@ pip install -r requirements.txt
 
 # Run the app
 python app.py
+```
 Then open http://127.0.0.1:5000 in your browser.
 
 🌐 API Example
+```bash
 curl -X POST http://127.0.0.1:5000/predict_api \
      -H "Content-Type: application/json" \
      -d '{"data": "Congratulations! You won a prize!"}'
-
+```
 Response:
-
+```
 {"prediction": "Spam", "confidence": "96.4%"}
-
+```
 📊 Results
 | Model                | F1-Score | Accuracy  |
 | -------------------- | -------- | --------- |
