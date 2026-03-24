@@ -8,6 +8,7 @@ joblib
 matplotlib
 seaborn
 flask
+gunicorn
 nltk
 ftfy
 unidecode

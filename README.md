@@ -43,6 +43,8 @@ Spam-Detection-Project/
 
 ## 🚀 Setup & Run
 
+### Local (development)
+
 ```bash
 # Clone repository
 git clone https://github.com/yourusername/spam-detection-ml.git
@@ -55,6 +57,38 @@ pip install -r requirements.txt
 python app.py
 ```
 Then open http://127.0.0.1:5000 in your browser.
+
+---
+
+## 🐳 Docker Deployment
+
+```bash
+# Build and start with Docker Compose
+docker compose up --build
+```
+Then open http://localhost:5000 in your browser.
+
+Or build/run manually:
+```bash
+docker build -t spam-detection .
+docker run -p 5000:5000 spam-detection
+```
+
+---
+
+## ☁️ Heroku Deployment
+
+```bash
+# Login and create app
+heroku login
+heroku create your-app-name
+
+# Deploy
+git push heroku main
+heroku open
+```
+
+The included `Procfile` tells Heroku to serve the app with **gunicorn**.
 
 🌐 API Example
 ```bash
